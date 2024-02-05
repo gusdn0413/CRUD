@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,15 @@ public class MemberAuthService {
         Member member = saveRequestDTOtoMember(requestDTO);
         memberRepository.save(member);
         return true;
+    }
+
+    public boolean login(String name, String password) {
+        Optional<Member> findMember = memberRepository.findByIsDeletedFalse(name);
+        if (findMember.isPresent()) {
+            Member member = findMember.get();
+            return member.getPassword().equals(password);
+        }
+        return false;
     }
 
     private Member saveRequestDTOtoMember(MemberSaveRequestDTO requestDTO) {
