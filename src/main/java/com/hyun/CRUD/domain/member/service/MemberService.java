@@ -1,7 +1,10 @@
 package com.hyun.CRUD.domain.member.service;
 
+import com.hyun.CRUD.domain.member.dto.MemberResponseDTO;
 import com.hyun.CRUD.domain.member.dto.MemberUpdateDTO;
+import com.hyun.CRUD.domain.member.entity.DeletedMember;
 import com.hyun.CRUD.domain.member.entity.Member;
+import com.hyun.CRUD.domain.member.repository.DeletedMemberRepository;
 import com.hyun.CRUD.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final DeletedMemberRepository deletedMemberRepository;
 
     @Transactional
     public boolean updateMember(Long memberId, MemberUpdateDTO updateDTO) {
@@ -32,4 +36,27 @@ public class MemberService {
         }
     }
 
+    public MemberResponseDTO findMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(RuntimeException::new);
+        MemberResponseDTO responseDTO = new MemberResponseDTO();
+        responseDTO.setId(member.getId());
+        responseDTO.setName(member.getName());
+        return responseDTO;
+    }
+
+    @Transactional
+    public boolean deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(RuntimeException::new);
+        member.softDelete();
+        memberRepository.save(member);
+
+        DeletedMember deletedMember = DeletedMember.builder()
+                .id(member.getId())
+                .name(member.getName())
+                .password(member.getPassword())
+                .build();
+        memberRepository.delete(member);
+        deletedMemberRepository.save(deletedMember);
+        return true;
+    }
 }

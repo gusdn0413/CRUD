@@ -2,7 +2,6 @@ package com.hyun.CRUD.domain.member.entity;
 
 import com.hyun.CRUD.domain.board.entity.Board;
 import com.hyun.CRUD.domain.comment.entity.Comment;
-
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,8 +12,8 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@Entity(name = "MEMBER")
-public class Member {
+@Entity(name = "DELETED_MEMBER")
+public class DeletedMember {
     @Id
     @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -24,14 +23,14 @@ public class Member {
     @Column(name = "MEMBER_PASSWORD")
     private String password;
     @Column(name = "MEMBER_DELETED")
-    private boolean isDeleted;
-    @OneToMany(mappedBy = "member")
+    private boolean isDeleted = true;
+    @OneToMany(mappedBy = "deletedMember")
     private List<Board> boards = new ArrayList<>();
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "deletedMember")
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Member(Long id, String name, String password) {
+    public DeletedMember(Long id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
