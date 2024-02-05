@@ -1,7 +1,7 @@
 package com.hyun.CRUD.domain.comment.entity;
 
 import com.hyun.CRUD.domain.board.entity.Board;
-import com.hyun.CRUD.domain.user.entity.Member;
+import com.hyun.CRUD.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 

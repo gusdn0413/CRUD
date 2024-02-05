@@ -1,4 +1,4 @@
-package com.hyun.CRUD.domain.user.entity;
+package com.hyun.CRUD.domain.member.entity;
 
 import com.hyun.CRUD.domain.board.entity.Board;
 import com.hyun.CRUD.domain.comment.entity.Comment;
