@@ -1,6 +1,7 @@
 package com.hyun.CRUD.domain.comment.entity;
 
 import com.hyun.CRUD.domain.board.entity.Board;
+import com.hyun.CRUD.domain.member.entity.DeletedMember;
 import com.hyun.CRUD.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,6 +18,9 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+    @ManyToOne
+    @JoinColumn(name = "DELETED_MEMBER_ID")
+    private DeletedMember deletedMember;
     @ManyToOne
     @JoinColumn(name = "BOARD_ID")
     private Board board;
