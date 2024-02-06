@@ -28,7 +28,7 @@ public class Member {
     private String name;
     @Column(name = "MEMBER_PASSWORD")
     private String password;
-    @Column(name = "MEMBER_DELETED")
+    @Column(name = "ISDELETED")
     private boolean isDeleted;
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
