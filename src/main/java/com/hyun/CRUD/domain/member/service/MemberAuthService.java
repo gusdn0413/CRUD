@@ -25,7 +25,7 @@ public class MemberAuthService {
     }
 
     public boolean login(String name, String password) {
-        Optional<Member> findMember = memberRepository.findByIsDeletedFalse(name);
+        Optional<Member> findMember = memberRepository.findByName(name);
         if (findMember.isPresent()) {
             Member member = findMember.get();
             return member.getPassword().equals(password);
