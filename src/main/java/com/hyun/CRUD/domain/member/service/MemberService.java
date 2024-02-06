@@ -17,6 +17,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    // 정보 수정
     @Transactional
     public boolean updateMember(Long memberId, MemberUpdateDTO updateDTO) {
         Optional<Member> findMember = memberRepository.findById(memberId);
@@ -33,6 +34,7 @@ public class MemberService {
         }
     }
 
+    // 정보 화ㅏㄱ인
     public MemberResponseDTO findMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(RuntimeException::new);
         MemberResponseDTO responseDTO = new MemberResponseDTO();

@@ -17,6 +17,7 @@ public class MemberAuthService {
 
     private final MemberRepository memberRepository;
 
+    // 회원가입
     @Transactional
     public boolean join(MemberSaveRequestDTO requestDTO) {
         Member member = saveRequestDTOtoMember(requestDTO);
@@ -24,15 +25,13 @@ public class MemberAuthService {
         return true;
     }
 
+    // 로그인
     public boolean login(String name, String password) {
-        Optional<Member> findMember = memberRepository.findByName(name);
-        if (findMember.isPresent()) {
-            Member member = findMember.get();
-            return member.getPassword().equals(password);
-        }
-        return false;
+        Member member = memberRepository.findByName(name).orElseThrow(RuntimeException::new);
+        return member.getPassword().equals(password);
     }
 
+    // 회원가입 로직
     private Member saveRequestDTOtoMember(MemberSaveRequestDTO requestDTO) {
         return Member.builder()
                 .name(requestDTO.getName())
