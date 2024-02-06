@@ -31,6 +31,8 @@ public class MemberAuthService {
         return member.getPassword().equals(password);
     }
 
+    // 로그아웃
+
     // 회원가입 로직
     private Member saveRequestDTOtoMember(MemberSaveRequestDTO requestDTO) {
         return Member.builder()
